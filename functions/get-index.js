@@ -41,8 +41,8 @@ module.exports.handler =  metricScope(metrics => async (event, context) => {
 
   metrics.putMetric("latency", end - start, Unit.Milliseconds)
   metrics.putMetric("count", restaurants.length, Unit.Count)
-  metrics.setProperty("RequestId", context.awsRequestId)
-  metrics.setProperty("ApiGatewayRequestId", event.requestContext.requestId)
+  // metrics.setProperty("RequestId", context.awsRequestId)
+  // metrics.setProperty("ApiGatewayRequestId", event.requestContext.requestId)
 
   console.log(`found ${restaurants.length} restaurants`)  
   const dayOfWeek = days[new Date().getDay()]
