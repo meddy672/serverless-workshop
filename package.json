@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run dotEnv && cross-env TEST_MODE=handler jest --silent --forceExit",
+    "dev": "npm run dotEnv && cross-env TEST_MODE=handler jest --watch --runInBand --detectOpenHandles --silent",
     "test-case": "npm run dotEnv && cross-env TEST_MODE=handler jest -- -t 'get-index' --silent",
     "acceptance": "npm run dotEnv && cross-env TEST_MODE=http jest",
     "deploy": "sls deploy",
