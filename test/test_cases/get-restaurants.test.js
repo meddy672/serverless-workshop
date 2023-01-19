@@ -8,7 +8,7 @@ describe(`When we invoke the GET /restaurants`, () => {
         const res = await when.we_invoke_get_restaurants()
 
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toHaveLength(8)
+        expect(res.body).toHaveLength(4)
 
         for (let restaurant of res.body) {
             expect(restaurant).toHaveProperty('name')
