@@ -2,7 +2,7 @@
 A servrless application built with the serverless framework on the AWS Platform.
 
 ## Overview
-This project was created from a 4 week serverless workshhop with serverless hero [Yan Cui](https://theburningmonk.com/)
+This project was created from a 4 week serverless workshhop
 
 ## Workshop Objectives
 * implement server-side rendering
