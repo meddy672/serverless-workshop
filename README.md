@@ -1,8 +1,10 @@
 # Production Ready Serverless Workshops
-A servrless application built with the serverless framework on the AWS Platform.
+This project was created from a 4 week serverless workshhop
+
+![Architecture](./assets/big-mouth-app.drawio.png)
 
 ## Overview
-This project was created from a 4 week serverless workshhop
+The application is a simple ecommerce site and is used to demo core fundamentals of the Production ready workshop 
 
 ## Workshop Objectives
 * implement server-side rendering
