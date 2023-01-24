@@ -1,4 +1,4 @@
-# Production Ready Serverless Workshops
+# Production Ready Serverless Workshops Architecture
 This project was created from a 4 week serverless workshhop
 
 ![Architecture](./assets/big-mouth-app.drawio.png)
