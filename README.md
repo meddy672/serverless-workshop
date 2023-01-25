@@ -1,5 +1,5 @@
 # Production Ready Serverless Workshop Architecture
-This project was created from a 4 week serverless workshhop. The application is built using the [Serverless Framework](https://www.serverless.com/framework/docs) and covers the objectives listed below.
+This project was created from a 4 week serverless workshhop. The application is built using the [Serverless Framework](https://www.serverless.com/framework/docs) and covers how to build, deploy, and monitor complex backends on the aws platform using the serverless framework.
 
 ![Architecture](./assets/big-mouth-app.drawio.png)
 
