@@ -27,6 +27,7 @@
     "serverless-aws-documentation": "^1.1.0",
     "serverless-export-env": "^2.2.0",
     "serverless-export-outputs": "^1.0.2",
+    "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-reqvalidator-plugin": "^1.0.4"
   },
   "dependencies": {

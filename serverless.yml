@@ -33,26 +33,6 @@ provider:
     metrics: true
   eventBridge:
     useCloudFormation: true
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action: sns:Publish
-          Resource: !Ref RestaurantNotificationTopic
-        - Effect: Allow
-          Action: events:PutEvents
-          Resource: !GetAtt EventBus.Arn
-        - Effect: Allow
-          Action: dynamodb:scan
-          Resource: !GetAtt RestaurantsTable.Arn
-        - Effect: Allow
-          Action: execute-api:Invoke
-          Resource: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestApi}/${sls:stage}/GET/restaurants
-        - Effect: Allow
-          Action: ssm:GetParameters*
-          Resource:
-            - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${self:service}/${sls:stage}/get-restaurants/config
-            - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${self:service}/${sls:stage}/search-restaurants/config
 
 functions:
   get-index:
@@ -61,6 +41,10 @@ functions:
       - http:
           path: /
           method: get
+    iamRoleStatements:
+      - Effect: Allow
+        Action: execute-api:Invoke
+        Resource: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestApi}/${sls:stage}/GET/restaurants
     environment:
       restaurants_api:
         Fn::Join:
@@ -86,6 +70,14 @@ functions:
           authorizer: aws_iam
     environment:
       restaurants_table: !Ref RestaurantsTable
+    iamRoleStatementsName: GetRestaurantsDynamoRole  
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:scan
+        Resource: !GetAtt RestaurantsTable.Arn
+      - Effect: Allow
+        Action: ssm:GetParameters*
+        Resource: !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${self:service}/${sls:stage}/get-restaurants/config
 
   search-restaurants:
     handler: functions/search-restaurants.handler
@@ -103,6 +95,19 @@ functions:
             arn: !GetAtt CognitoUserPool.Arn
     environment:
       restaurants_table: !Ref RestaurantsTable
+    iamRoleStatementsName: SearchRestaurantsSSMRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:scan
+        Resource: !GetAtt RestaurantsTable.Arn
+      - Effect: Allow
+        Action: ssm:GetParameters*
+        Resource:
+          - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${self:service}/${sls:stage}/get-restaurants/config
+          - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${self:service}/${sls:stage}/search-restaurants/config
+      # - Effect: Allow
+      #   Action: kms:Decrypt
+      #   Resource: ${ssm:/${sls:stage}/kmsArn}
 
   place-order:
     handler: functions/place-order.handler
@@ -116,6 +121,10 @@ functions:
             arn: !GetAtt CognitoUserPool.Arn
     environment:
       bus_name: !Ref EventBus
+    iamRoleStatements:
+      - Effect: Allow
+        Action: events:PutEvents
+        Resource: !GetAtt EventBus.Arn
 
   notify-restaurant:
     handler: functions/notify-restaurant.handler
@@ -130,6 +139,14 @@ functions:
     environment:
       bus_name: !Ref EventBus
       restaurant_notification_topic: !Ref RestaurantNotificationTopic
+    iamRoleStatementsName: PublishToRestaurantsRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action: events:PutEvents
+        Resource: !GetAtt EventBus.Arn
+      - Effect: Allow
+        Action: sns:Publish
+        Resource: !Ref RestaurantNotificationTopic
 
 resources:
   Conditions:
@@ -318,3 +335,4 @@ resources:
 plugins:
   - serverless-export-env
   - serverless-export-outputs
+  - serverless-iam-roles-per-function
