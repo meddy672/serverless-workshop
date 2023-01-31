@@ -6,6 +6,8 @@ const URL = require('url')
 const { metricScope, Unit } = require("aws-embedded-metrics");
 const Log = require('@dazn/lambda-powertools-logger')
 const AWSXRay = require('aws-xray-sdk-core')
+const CorrelationIds = require('@dazn/lambda-powertools-correlation-ids')
+
 AWSXRay.captureHTTPsGlobal(require('https'))
 
 const restaurantsApiRoot = process.env.restaurants_api
@@ -29,8 +31,9 @@ const getRestaurants = async () => {
   aws4.sign(opts)
 
   const httpReq = http.get(restaurantsApiRoot, {
-    headers: opts.headers
+    headers: Object.assign({}, opts.headers, CorrelationIds.get())
   })
+  
   return (await httpReq).data
 }
 

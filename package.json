@@ -31,6 +31,8 @@
     "serverless-reqvalidator-plugin": "^1.0.4"
   },
   "dependencies": {
+    "@dazn/lambda-powertools-correlation-ids": "^1.28.1",
+    "@dazn/lambda-powertools-eventbridge-client": "^1.28.1",
     "@dazn/lambda-powertools-logger": "^1.28.1",
     "@middy/core": "^3.1.0",
     "@middy/ssm": "^3.1.0",
