@@ -1,7 +1,9 @@
 const EventBridge = require('aws-sdk/clients/eventbridge')
-const eventBridge = new EventBridge()
+const XRay = require('aws-xray-sdk-core')
 const SNS = require('aws-sdk/clients/sns')
-const sns = new SNS()
+
+const eventBridge = XRay.captureAWSClient(new EventBridge())
+const sns = XRay.captureAWSClient(new SNS())
 
 const busName = process.env.bus_name
 const topicArn = process.env.restaurant_notification_topic

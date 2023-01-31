@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 dotenv.config({ path: '.env-outputs' })
 
-
+console.error = jest.fn()
 let initialized = false
 
 const init = async () => {

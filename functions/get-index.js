@@ -5,6 +5,8 @@ const aws4 = require('aws4')
 const URL = require('url')
 const { metricScope, Unit } = require("aws-embedded-metrics");
 const Log = require('@dazn/lambda-powertools-logger')
+const AWSXRay = require('aws-xray-sdk-core')
+AWSXRay.captureHTTPsGlobal(require('https'))
 
 const restaurantsApiRoot = process.env.restaurants_api
 const ordersApiRoot = process.env.orders_api
