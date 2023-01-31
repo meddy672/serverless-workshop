@@ -1,6 +1,9 @@
 service: production-ready-serverless-workshop
 frameworkVersion: '3'
 custom:
+  logLevel:
+    prod: INFO
+    default: DEBUG
   name: meddy672
   export-env:
     overwrite: true
@@ -21,6 +24,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   environment:
+    LOG_LEVEL: ${self:custom.logLevel.${sls:stage}, self:custom.logLevel.default}
     rest_api_url:
       Fn::Join:
         - ""
