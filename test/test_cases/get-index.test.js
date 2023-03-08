@@ -4,7 +4,7 @@ const { init } = require('../steps/init')
 
 describe(`When we invoke the GET / endpoint`, () => {
     beforeAll( async() => await init())
-  it(`Should return the index page with 8 restaurants`, async () => {
+  it(`Should return the index page with 4 restaurants`, async () => {
     const res = await when.we_invoke_get_index()
 
     expect(res.statusCode).toEqual(200)
