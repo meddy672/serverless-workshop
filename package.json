@@ -16,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.2.5",
-    "aws-sdk": "^2.1290.0",
+    "aws-sdk": "^2.1450.0",
     "awscred": "^1.5.0",
     "cheerio": "^1.0.0-rc.12",
     "cross-env": "^7.0.3",
